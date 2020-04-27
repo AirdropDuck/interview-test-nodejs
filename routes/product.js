@@ -3,10 +3,11 @@ const router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-    if(products.length > 0){
+    if(global.products.length > 0){
+        global.city = global.products[0].city
         let result = totalCal();
         res.render('index', {
-            city: products[0].city,
+            city: global.city,
             total: result.total,
             tax: result.tax,
             taxTotal: result.taxTotal
@@ -64,7 +65,7 @@ function totalCal(){
         }
     })
 
-    switch (global.products[0].city) {
+    switch (global.city) {
         case 'ca':
             tax = (Math.ceil((newTotal * 0.0975)*20)/20).toFixed(2)
             break;
